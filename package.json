@@ -1,0 +1,40 @@
+{
+  "name": "commentariat",
+  "version": "0.0.1",
+  "description": "A little library for inserting comments into JS and JSX files",
+  "main": "src/commentariat.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flexport/commentariat.git"
+  },
+  "keywords": [
+    "comment",
+    "babel",
+    "js",
+    "jsx"
+  ],
+  "author": "Zach Gotsch <zach@flexport.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/flexport/commentariat/issues"
+  },
+  "homepage": "https://github.com/flexport/commentariat#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^17.0.0",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.9.1",
+    "jest": "^23.2.0"
+  },
+  "optionalDependencies": {
+    "@babel/parser": "^7.0.0-beta.51"
+  }
+}
