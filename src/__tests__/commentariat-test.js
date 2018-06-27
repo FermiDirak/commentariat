@@ -1,7 +1,7 @@
 // TEAM: frontend_infra
 // @flow
 
-import {commentSource} from "../comment";
+import {commentSource} from "../commentariat";
 
 describe("commentSource", () => {
   describe("in JS code", () => {

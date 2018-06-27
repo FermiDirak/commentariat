@@ -6,11 +6,12 @@ import {invariant} from "./utils";
 
 export default class DefaultMap<K, V> {
   inner: Map<K, V>;
+
   initializer: K => V;
 
   constructor(initializer: K => V) {
-    this.initializer = initializer;
     this.inner = new Map();
+    this.initializer = initializer;
   }
 
   get(key: K): V {
