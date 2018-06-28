@@ -330,25 +330,209 @@ describe("commentSource", () => {
       ].join("\n");
 
       expect(
-        commentSource(input, [
-          {comment: "Test comment, please ignore", line: 4, type: "line"},
-        ])
+        commentSource(
+          input,
+          [{comment: "Test comment, please ignore", line: 4, type: "line"}],
+          {jsx: true}
+        )
       ).toBe(expected);
     });
 
-    xit("writes a multiple line comment in a JSX block", () => {});
+    it("writes a multiple line comment in a JSX block", () => {
+      const input = [
+        "// TEAM: frontend_infra",
+        "",
+        "<div>",
+        "  <span>Hello world</span>",
+        "</div>",
+        "",
+      ].join("\n");
+      const expected = [
+        "// TEAM: frontend_infra",
+        "",
+        "<div>",
+        "  {/* Test comment, please ignore */}",
+        "  {/* This is a second line */}",
+        "  <span>Hello world</span>",
+        "</div>",
+        "",
+      ].join("\n");
 
-    xit("writes a block comment in a JSX block", () => {});
+      expect(
+        commentSource(
+          input,
+          [
+            {
+              comment: "Test comment, please ignore\nThis is a second line",
+              line: 4,
+              type: "line",
+            },
+          ],
+          {jsx: true}
+        )
+      ).toBe(expected);
+    });
 
-    xit("writes a multiline block comment in a JSX block", () => {});
+    it("writes a block comment in a JSX block", () => {
+      const input = [
+        "// TEAM: frontend_infra",
+        "",
+        "<div>",
+        "  <span>Hello world</span>",
+        "</div>",
+        "",
+      ].join("\n");
+      const expected = [
+        "// TEAM: frontend_infra",
+        "",
+        "<div>",
+        "  {/* Test comment, please ignore */}",
+        "  <span>Hello world</span>",
+        "</div>",
+        "",
+      ].join("\n");
 
-    xit("writes multiple comments in the order given", () => {});
+      expect(
+        commentSource(
+          input,
+          [{comment: "Test comment, please ignore", line: 4, type: "block"}],
+          {jsx: true}
+        )
+      ).toBe(expected);
+    });
 
-    xdescribe("indent levels", () => {
-      xit("maintains the indent level in a single line comment", () => {});
-      xit("maintains the indent level in a multiple line comment", () => {});
-      xit("maintains the indent level in a block comment", () => {});
-      xit("maintains the indent level in a multiline block comment", () => {});
+    it("writes a multiline block comment in a JSX block", () => {
+      const input = [
+        "// TEAM: frontend_infra",
+        "",
+        "<div>",
+        "  <span>Hello world</span>",
+        "</div>",
+        "",
+      ].join("\n");
+      const expected = [
+        "// TEAM: frontend_infra",
+        "",
+        "<div>",
+        "  {/* Test comment, please ignore",
+        "    * This is a second line",
+        "    */}",
+        "  <span>Hello world</span>",
+        "</div>",
+        "",
+      ].join("\n");
+
+      expect(
+        commentSource(
+          input,
+          [
+            {
+              comment: "Test comment, please ignore\nThis is a second line",
+              line: 4,
+              type: "block",
+            },
+          ],
+          {jsx: true}
+        )
+      ).toBe(expected);
+    });
+
+    it("writes a JS comment in a JSX attribute", () => {
+      const input = [
+        "// TEAM: frontend_infra",
+        "",
+        "<div>",
+        "  <span className={",
+        '    "pullRight"',
+        "  }>Hello world</span>",
+        "</div>",
+        "",
+      ].join("\n");
+      const expected = [
+        "// TEAM: frontend_infra",
+        "",
+        "<div>",
+        "  <span className={",
+        "    // Test comment, please ignore",
+        '    "pullRight"',
+        "  }>Hello world</span>",
+        "</div>",
+        "",
+      ].join("\n");
+
+      expect(
+        commentSource(
+          input,
+          [{comment: "Test comment, please ignore", line: 5, type: "line"}],
+          {jsx: true}
+        )
+      ).toBe(expected);
+    });
+
+    it("writes a JS comment in a JSX expression container", () => {
+      const input = [
+        "// TEAM: frontend_infra",
+        "",
+        "<div>",
+        "  {",
+        "    1 + 1",
+        "  }",
+        "</div>",
+        "",
+      ].join("\n");
+      const expected = [
+        "// TEAM: frontend_infra",
+        "",
+        "<div>",
+        "  {",
+        "    // Test comment, please ignore",
+        "    1 + 1",
+        "  }",
+        "</div>",
+        "",
+      ].join("\n");
+
+      expect(
+        commentSource(
+          input,
+          [{comment: "Test comment, please ignore", line: 5, type: "line"}],
+          {jsx: true}
+        )
+      ).toBe(expected);
+    });
+
+    it("writes a JS comment at the start of a JSX block", () => {
+      const input = [
+        "// TEAM: frontend_infra",
+        "",
+        "<div>",
+        "  <span>Hello world</span>",
+        "</div>",
+        "",
+      ].join("\n");
+      const expected = [
+        "// TEAM: frontend_infra",
+        "",
+        "// Test comment, please ignore",
+        "<div>",
+        "  <span>Hello world</span>",
+        "</div>",
+        "",
+      ].join("\n");
+
+      expect(
+        commentSource(
+          input,
+          [
+            {
+              comment: "Test comment, please ignore",
+              line: 3,
+              type: "line",
+            },
+          ],
+          {jsx: true}
+        )
+      ).toBe(expected);
     });
   });
 });
