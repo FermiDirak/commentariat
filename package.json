@@ -2,9 +2,14 @@
   "name": "commentariat",
   "version": "0.0.1",
   "description": "A little library for inserting comments into JS and JSX files",
-  "main": "src/commentariat.js",
+  "main": "dist/commentariat.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "babel -d dist/ src/",
+    "prepare": "yarn build"
   },
   "repository": {
     "type": "git",

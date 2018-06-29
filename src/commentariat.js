@@ -1,11 +1,9 @@
-// TEAM: frontend_infra
-// WATCHERS: zgotsch
 // @flow
 
 import DefaultMap from "./DefaultMap";
-import {flatMap} from "./utils";
-import getLineRanges from "./getLineRanges";
 import findEnclosingNode from "./astTools";
+import getLineRanges from "./getLineRanges";
+import {flatMap} from "./utils";
 
 let babelParser;
 
@@ -85,7 +83,7 @@ type CommentSourceOptions = {
  * If multiple comments correspond to the same line, they will be inserted
  * in the order they are specified.
  */
-export function commentSource(
+export default function commentSource(
   source: string,
   comments: $ReadOnlyArray<CommentDesc>,
   {jsx}: CommentSourceOptions = {jsx: false}
@@ -159,5 +157,3 @@ export function commentSource(
   }, source.split("\n"));
   return newSourceLines.join("\n");
 }
-
-export function f() {}
