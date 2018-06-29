@@ -534,5 +534,97 @@ describe("commentSource", () => {
         )
       ).toBe(expected);
     });
+
+    it("writes a JS comment between attributes", () => {
+      const input = [
+        "// TEAM: frontend_infra",
+        "",
+        "<div",
+        '  className="foo"',
+        "/>",
+        "",
+      ].join("\n");
+      const expected = [
+        "// TEAM: frontend_infra",
+        "",
+        "<div",
+        "  // Test comment, please ignore",
+        '  className="foo"',
+        "/>",
+        "",
+      ].join("\n");
+
+      expect(
+        commentSource(
+          input,
+          [
+            {
+              comment: "Test comment, please ignore",
+              line: 4,
+              type: "line",
+            },
+          ],
+          {jsx: true}
+        )
+      ).toBe(expected);
+    });
+
+    it("writes a JS comment inside a tag", () => {
+      const input = [
+        "// TEAM: frontend_infra",
+        "",
+        "<",
+        "  div",
+        ">",
+        "</",
+        "  div",
+        ">",
+        "",
+      ].join("\n");
+      const expected = [
+        "// TEAM: frontend_infra",
+        "",
+        "<",
+        "  // look at all these comments",
+        "  div",
+        "// here",
+        ">",
+        "</",
+        "  /* there */",
+        "  div",
+        "// everywhere",
+        ">",
+        "",
+      ].join("\n");
+
+      expect(
+        commentSource(
+          input,
+          [
+            {
+              comment: "look at all these comments",
+              line: 4,
+              type: "line",
+            },
+            {
+              comment: "here",
+              line: 5,
+              type: "line",
+            },
+            {
+              comment: "there",
+              line: 7,
+              type: "block",
+            },
+            {
+              comment: "everywhere",
+              line: 8,
+              type: "line",
+            },
+          ],
+          {jsx: true}
+        )
+      ).toBe(expected);
+    });
   });
 });

@@ -140,6 +140,8 @@ export default function commentSource(
         node != null &&
         node.type !== "JSXAttribute" &&
         node.type !== "JSXExpressionContainer" &&
+        node.type !== "JSXOpeningElement" &&
+        node.type !== "JSXClosingElement" &&
         node.type.indexOf("JSX") !== -1
     );
   } else {
