@@ -76,7 +76,8 @@ function addComments(
 }
 
 type CommentSourceOptions = {
-  jsx: boolean,
+  jsx?: boolean,
+  parserPlugins?: $ReadOnlyArray<string>,
 };
 
 /* Insert comments into source.
@@ -86,8 +87,16 @@ type CommentSourceOptions = {
 export default function commentSource(
   source: string,
   comments: $ReadOnlyArray<CommentDesc>,
-  {jsx}: CommentSourceOptions = {jsx: false}
+  options?: CommentSourceOptions
 ): string {
+  // TODO(zach): Optional chaining needs Babel 7
+  // TODO(zach): Nullish-coalescing operator makes Jest die
+  const jsx = (options != null ? options.jsx : null) || false;
+  const parserPlugins = (options != null ? options.parserPlugins : null) || [
+    "jsx",
+    "flow",
+  ];
+
   let parseTree;
   let babelTraverse;
 
@@ -106,7 +115,7 @@ export default function commentSource(
 
       parseTree = babelParser.parse(source, {
         sourceType: "module",
-        plugins: ["jsx", "flow"],
+        plugins: parserPlugins,
       });
     }
   }

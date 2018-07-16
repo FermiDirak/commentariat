@@ -22,7 +22,7 @@ type ASTNode = {
 
 type BabelParserOptions = {
   sourceType: "module",
-  plugins: Array<"jsx" | "flow">,
+  plugins: $ReadOnlyArray<string>,
 };
 
 declare module "@babel/parser" {

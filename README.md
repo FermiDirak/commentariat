@@ -92,11 +92,9 @@ prints
 ```jsx
 function MyComponent({name}) {
   // Comments not in JSX are placed as before
-  return (
-    <div>
-      {/* Comments in JSX are placed in an expression */}
-      Hello {name}!
-    </div>
-  );
+  return <div>
+    {/* Comments in JSX are placed in an expression */}
+    Hello {name}!
+  </div>;
 }
 ```

@@ -9,7 +9,8 @@
   "scripts": {
     "test": "jest",
     "build": "babel -d dist/ src/",
-    "prepare": "yarn build"
+    "prepare": "yarn build",
+    "lint": "eslint src"
   },
   "repository": {
     "type": "git",
@@ -29,11 +30,11 @@
   "homepage": "https://github.com/flexport/commentariat#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-eslint": "^8.2.5",
+    "babel-eslint": "^8.2.6",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
-    "eslint": "^4.19.1",
+    "eslint": "^5.1.0",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-flowtype": "^2.49.3",
