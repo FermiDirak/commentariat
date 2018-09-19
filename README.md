@@ -15,6 +15,7 @@ It takes three arguments:
   - `type: "line" | "block"` Whether to write a line or block comment (JSX comments are always block comments`)
 - `options: object with`
   - `jsx: boolean (default: false)` Whether to write JSX comments where required (requires `@babel/parser` and `@babel/traverse` optional dependencies to be installed).
+  - `parserPlugins: Array of strings` Parser plugins to be used by Babel, if it is being used
 
 And returns the newly commented source string.
 
